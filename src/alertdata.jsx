@@ -15,8 +15,9 @@ const displayMessage = {
     {
       content: [
         "Agora a lógica de adicionar argumentos está mais robusta.",
-        "O modal de alerta pode ser aberto por um botão e só aparece uma vez por padrão.",
-        "O código foi refatorado para melhor organização e performance!"
+        "A função histórico foi adicionada!",
+        "O código foi refatorado para melhor organização e performance!",
+        "Correção de Bugs!"
       ],
       footer: "Explore as novidades!"
     }

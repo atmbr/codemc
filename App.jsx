@@ -19,7 +19,7 @@ function App() {
                 </div>
                 <div>
                   <h1 className="font-ten text-3xl bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-                    Minecraft Command Tool
+                    Minecraft Command Tools
                   </h1>
                   <p className="text-slate-400 mt-1">
                     Escreva, valide e simule comandos com facilidade.

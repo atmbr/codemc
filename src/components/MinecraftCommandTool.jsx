@@ -263,7 +263,7 @@ const MinecraftCommandTool = () => {
         </ul>
         <p className="mt-3">Explore as novidades!</p>
       </AlertModal>
-      <Modal setCommand={setCommand} isOpen={isModalOpen} history={true} setIsOpen={setIsModalOpen} title="Histórico:" description="Aqui estara o histrico." children="" footer=""/>
+      <Modal /*setCommand={setCommand}*/ isOpen={isModalOpen} history={true} setIsOpen={setIsModalOpen} title="Histórico:" description="Aqui estara o histrico." children="" footer=""/>
     </div>
   );
 };

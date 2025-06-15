@@ -17,7 +17,6 @@ import { useCommandValidation } from '@/hooks/useCommandValidation';
 import { simulateCommandExecution } from '@/lib/commandSimulator';
 import useAlert from '@/hooks/useAlert';
 
-
 const MinecraftCommandTool = () => {
   const [input, setInput] = useState('');
   const [cursorPosition, setCursorPosition] = useState(0);
@@ -35,6 +34,7 @@ const [commandHistory, setCommand] = useState("");
   } = useAlert('alertModalSeen_v2');
   
   useEffect(() => {
+    
     checkAndShowNewsAlert();
   }, [checkAndShowNewsAlert]);
 
@@ -53,6 +53,16 @@ const [commandHistory, setCommand] = useState("");
   } = useCommandValidation();
 
   useEffect(() => {
+    fetch('/news.json')
+    .then(response => response.json())
+    .then(data => {
+      // Faça algo com os dados, por exemplo, salvar em um estado
+      // Exemplo: setNews(data);
+      // console.log('News:', data);
+    })
+    .catch(error => {
+      console.error('Erro ao buscar news.json:', error);
+    });
     if (commandHistory) {
     setInput(commandHistory);  // Preenche o input
     setIsModalOpen(false);     // Fecha o modal

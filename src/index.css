@@ -188,7 +188,7 @@ html, :host {
 .bg-header{
   background-color: hsl(var(--bg-header));
 }
-  input[type="text"] {
+input[type="text"] {
     text-transform: lowercase;
 }
 /* Componentes interativos */

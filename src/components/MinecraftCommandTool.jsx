@@ -71,7 +71,7 @@ const [commandHistory, setCommand] = useState("");
   }, [commandHistory,parsedCommand, validateCommand, input, unknownCommandError]);
 
   const handleInputChange = (value, position) => {
-    setInput(value);
+    setInput(value.toLowerCase());
     setCursorPosition(position);
     setSimulationResult(null);
   };
@@ -99,7 +99,7 @@ const [commandHistory, setCommand] = useState("");
     const newInput = `${partBefore}${suggestion.value} `;
     const newPosition = newInput.length;
 
-    setInput(newInput);
+    setInput(newInput.toLowerCase());
     setCursorPosition(newPosition);
     
     setTimeout(() => {

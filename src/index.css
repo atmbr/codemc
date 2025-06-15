@@ -188,6 +188,9 @@ html, :host {
 .bg-header{
   background-color: hsl(var(--bg-header));
 }
+  input[type="text"] {
+    text-transform: lowercase;
+}
 /* Componentes interativos */
 .command-input {
   background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));

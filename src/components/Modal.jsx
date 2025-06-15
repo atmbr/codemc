@@ -7,9 +7,17 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { 
+    CrossIcon,
+  Play,
+  Trash2,
+  X, 
 
-const Modal = ({ isOpen, setIsOpen, title, description, children, footer }) => (
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+const Modal = ({setCommand ,isOpen, setIsOpen, title, description, children, footer, history }) => {
+const hist = JSON.parse(localStorage.getItem('history'))||"Não há histórico!!";
+return (
 <Dialog open={isOpen} onOpenChange={setIsOpen}>
     <DialogContent className="sm:max-w-[625px] bg-slate-800/90 backdrop-blur-md border-slate-700 text-slate-100">
         <DialogHeader>
@@ -20,8 +28,13 @@ const Modal = ({ isOpen, setIsOpen, title, description, children, footer }) => (
                 <DialogDescription className="text-slate-400">{description}</DialogDescription>
             )}
         </DialogHeader>
-        <div className="my-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-            {children}
+        <div className="space-y-2 text-md list-none">
+            {history? hist.map((p, idx) => (
+                <li  onClick={() => setCommand(p)} key={idx} className=" p-3 bg-slate-700/50 rounded-md border border-slate-600/50 hover:bg-slate-600/50 cursor-pointer flex justify-between" title={`Adicionar "${p}" ao campo de entrada`}>
+                  <p className="font-mono text-yellow-300">{p}</p>
+                <Trash2 onClick={console.log("Em criação...")} className="w-4 h-auto mr-2 font-bold"/>
+                </li>
+              )):children}
         </div>
         <DialogFooter>
             {footer ? (
@@ -34,6 +47,6 @@ const Modal = ({ isOpen, setIsOpen, title, description, children, footer }) => (
         </DialogFooter>
     </DialogContent>
 </Dialog>
-);
+)};
 
 export default Modal;

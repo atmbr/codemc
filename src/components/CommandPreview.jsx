@@ -43,7 +43,7 @@ const CommandPreview = ({ parsedCommand, validationErrors, isComplete, unknownCo
   };
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
+    <div className="bg-card backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
       <div className="flex items-center space-x-3 mb-4">
         <Eye className="w-6 h-6 text-blue-400" />
         <h3 className="text-xl font-semibold text-white">Visualização do Comando</h3>

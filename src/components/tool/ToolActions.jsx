@@ -7,6 +7,8 @@ import {
   AlertCircle, 
   Copy,
   RotateCcw,
+  BookOpen,
+  HistoryIcon,
 } from 'lucide-react';
 
 const ToolActions = ({
@@ -16,7 +18,8 @@ const ToolActions = ({
   unknownCommandError,
   onSimulate,
   onCopy,
-  onReset
+  onReset,
+  onHistory
 }) => (
   <div className="flex flex-wrap items-center gap-3">
     <Button
@@ -45,6 +48,14 @@ const ToolActions = ({
     >
       <RotateCcw className="w-4 h-4 mr-2" />
       Limpar
+    </Button>
+     <Button
+      variant="outline"
+      onClick={onHistory}
+      className="border-slate-600 hover:border-orange-500 hover:text-orange-400 transition-colors"
+    >
+      <HistoryIcon className="w-4 h-4 mr-2" />
+      Histórico
     </Button>
 
     <div className="flex items-center space-x-2 ml-auto">

@@ -11,8 +11,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { Package } from 'lucide-react';
 
-const TemplateModal = ({ isOpen, setIsOpen, title, description, children }) => {
-  return (
+const TemplateModal = ({ isOpen, setIsOpen, title, description, children, footer, history }) => {
+const hist = JSON.parse(localStorage.getItem('history'))||"Não há histórico!!";
+console.log(hist, isOpen)
+const content = history? hist:children;
+ return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-[525px] bg-slate-800/90 backdrop-blur-md border-slate-700 text-slate-100">
         <DialogHeader>
@@ -28,7 +31,7 @@ const TemplateModal = ({ isOpen, setIsOpen, title, description, children }) => {
         </DialogHeader>
         
         <div className="my-4 max-h-[60vh] overflow-y-auto pr-2">
-          {children}
+          {/* {content} */} tsess
         </div>
 
         <DialogFooter>

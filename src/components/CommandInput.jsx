@@ -57,7 +57,7 @@ const CommandInput = forwardRef(({
   return (
     <div className="space-y-3">
       <div className="relative">
-        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-green-400 font-bold minecraft-font">
+        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-green-400 font-bold font-seven">
           /
         </div>
         
@@ -68,9 +68,9 @@ const CommandInput = forwardRef(({
           onChange={handleInputChange}
           placeholder="Digite um comando do Minecraft..."
           className={`
-            w-full pl-8 pr-4 py-4 rounded-lg text-lg minecraft-font
-            bg-slate-900/80 border-2 text-white placeholder-slate-400
-            focus:outline-none focus:ring-2 focus:ring-green-500/50
+            w-full pl-8 pr-4 py-4 rounded-lg text-lg font-seven
+            bg-slate-900/80 bg-300 border-2 text-white placeholder-slate-400
+            focus:outline-none focus:ring-2 focus:ring-green-500/0
             transition-all duration-300
             ${displayError 
               ? 'border-red-500/50 focus:border-red-500' 

@@ -56,6 +56,12 @@ export const useCommandParser = (input, cursorPosition) => {
       setIsCommandComplete(complete);
     } else {
       const closest = findClosestCommand(typedCommandName, commands);
+      if (!trimmedInput.startsWith('/')){
+        setUnknownCommandError({
+          message: `Começe com " / " para ver os comandos.`,
+          suggestion: null
+        });
+      }
       if (trimmedInput.startsWith('/') && typedCommandName) {
         setUnknownCommandError({
           message: `Comando '${typedCommandName}' não encontrado.`,

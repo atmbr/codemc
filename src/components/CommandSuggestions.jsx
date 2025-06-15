@@ -42,7 +42,7 @@ const CommandSuggestions = ({ suggestions, currentArgument, onSuggestionSelect, 
 
   if (!show || suggestions.length === 0) {
     return (
-      <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
+      <div className="bg-card backdrop-blur-sm rounded-xl border border-slate-700/50  p-6">
         <div className="flex items-center space-x-3 mb-4">
           <Lightbulb className="w-6 h-6 text-yellow-400" />
           <h3 className="text-xl font-semibold text-white">Sugestões</h3>
@@ -56,7 +56,7 @@ const CommandSuggestions = ({ suggestions, currentArgument, onSuggestionSelect, 
   }
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
+    <div className="bg-card backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
       <div className="flex items-center space-x-3 mb-4">
         {isUnknownCommand ? <AlertTriangle className="w-6 h-6 text-red-400" /> : <Lightbulb className="w-6 h-6 text-yellow-400" />}
         <h3 className="text-xl font-semibold text-white">
@@ -79,7 +79,7 @@ const CommandSuggestions = ({ suggestions, currentArgument, onSuggestionSelect, 
               exit={{ opacity: 0, x: 20 }}
               transition={{ delay: index * 0.05 }}
               onClick={() => onSuggestionSelect(suggestion)}
-              className="suggestion-item p-3 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 cursor-pointer border border-slate-600/30 hover:border-green-500/50"
+              className="suggestion-item p-3 rounded-lg bg-300 hover:bg-slate-600/50 cursor-pointer border border-slate-600/30 hover:border-green-500/50"
             >
               <div className="flex items-center space-x-3">
                 <div className={`p-2 rounded-lg ${getTypeColor(suggestion.type)}`}>

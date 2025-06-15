@@ -10,7 +10,8 @@ import AlertModal from '@/components/AlertModal';
 import ToolHeader from '@/components/tool/ToolHeader';
 import ToolActions from '@/components/tool/ToolActions';
 import SimulationArea from '@/components/tool/SimulationArea';
-
+import Modal from '@/components/Modal'
+import TemplateModal from '@/components/TemplateModal'
 import { useCommandParser } from '@/hooks/useCommandParser';
 import { useCommandValidation } from '@/hooks/useCommandValidation';
 import { simulateCommandExecution } from '@/lib/commandSimulator';
@@ -22,6 +23,8 @@ const MinecraftCommandTool = () => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [simulationResult, setSimulationResult] = useState(null);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+const [commandHistory, setCommand] = useState("");
   const inputRef = useRef(null);
 
   const {
@@ -50,12 +53,22 @@ const MinecraftCommandTool = () => {
   } = useCommandValidation();
 
   useEffect(() => {
+    if (commandHistory) {
+    setInput(commandHistory);  // Preenche o input
+    setIsModalOpen(false);     // Fecha o modal
+
+    setTimeout(() => {
+      inputRef.current?.focus(); // Foca no input
+    }, 0);
+
+    setCommand(null); // <- limpa o valor para não reusar
+  }
     if (input && !unknownCommandError) {
       validateCommand(parsedCommand);
     } else {
       validateCommand(null); 
     }
-  }, [parsedCommand, validateCommand, input, unknownCommandError]);
+  }, [commandHistory,parsedCommand, validateCommand, input, unknownCommandError]);
 
   const handleInputChange = (value, position) => {
     setInput(value);
@@ -127,7 +140,12 @@ const MinecraftCommandTool = () => {
 
     const result = simulateCommandExecution(parsedCommand);
     setSimulationResult(result);
-    
+    if(result){
+      let history = JSON.parse(localStorage.getItem('history')) || [];
+      console.log(history)
+      history.push(input);
+      localStorage.setItem('history', JSON.stringify(history));
+    }
     toast({
       title: "Comando simulado!",
       description: "Veja o resultado da simulação abaixo.",
@@ -150,6 +168,10 @@ const MinecraftCommandTool = () => {
       inputRef.current.focus();
     }
   };
+    const handleHistory = () => {
+    setIsModalOpen(true);
+    setInput('');
+  };
   
   const shouldShowSuggestions = () => {
     if (input.trim() === '/') return true;
@@ -168,7 +190,7 @@ const MinecraftCommandTool = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6 shadow-2xl"
+        className="bg-card backdrop-blur-sm rounded-xl border border-gray-600/60  p-6 shadow-2xl"
       >
         <ToolHeader onHelpClick={() => setIsHelpModalOpen(true)} onAlertClick={showNewsAlert} />
 
@@ -191,6 +213,7 @@ const MinecraftCommandTool = () => {
             onSimulate={handleSimulate}
             onCopy={handleCopy}
             onReset={handleReset}
+            onHistory={handleHistory}
           />
         </div>
       </motion.div>
@@ -240,6 +263,7 @@ const MinecraftCommandTool = () => {
         </ul>
         <p className="mt-3">Explore as novidades!</p>
       </AlertModal>
+      <Modal setCommand={setCommand} isOpen={isModalOpen} history={true} setIsOpen={setIsModalOpen} title="Histórico:" description="Aqui estara o histrico." children="" footer=""/>
     </div>
   );
 };

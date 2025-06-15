@@ -42,7 +42,8 @@ const Modal = ({ setCommand, isOpen, setIsOpen, title, description, footer }) =>
           {description && <DialogDescription className="text-slate-400">{description}</DialogDescription>}
         </DialogHeader>
 
-        <div className="space-y-2 text-md list-none">
+        <div className="max-h-80 overflow-y-auto space-y-2 text-md list-none ">
+
           {history.length === 0 ? (
             <div className="flex items-center justify-center text-slate-400 font-mono text-xl p-8 bg-slate-800/40 rounded-md select-none">
               <InfoIcon className="h-6 w-6 mr-2 text-blue-400" />

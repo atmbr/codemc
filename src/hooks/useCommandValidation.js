@@ -129,8 +129,8 @@ const validateItem = (value) => {
   // Basic minecraft item format
   if (/^minecraft:[a-z_]+$/.test(value)) return true;
   
-  // Allow simple item names (will be converted to minecraft:name)
-  if (/^[a-z_]+$/.test(value)) return true;
+  // Permitir nomes de itens simples (serão convertidos para minecraft:name)
+  // if (/^[a-z_]+$/.test(value)) return true;
   
   return false;
 };

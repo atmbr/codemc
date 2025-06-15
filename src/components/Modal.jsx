@@ -32,7 +32,7 @@ return (
             {history? hist.map((p, idx) => (
                 <li  onClick={() => setCommand(p)} key={idx} className=" p-3 bg-slate-700/50 rounded-md border border-slate-600/50 hover:bg-slate-600/50 cursor-pointer flex justify-between" title={`Adicionar "${p}" ao campo de entrada`}>
                   <p className="font-mono text-yellow-300">{p}</p>
-                <Trash2 onClick={console.log("Em criação...")} className="w-4 h-auto mr-2 font-bold"/>
+                {/* <Trash2 onClick={} className="w-4 h-auto mr-2 font-bold"/> */}
                 </li>
               )):children}
         </div>

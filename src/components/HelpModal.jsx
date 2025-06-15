@@ -59,7 +59,11 @@ console.log(executeTips.title)
               ))}
             </ul>
              <p className="text-xs text-slate-500 mt-3">
-               {executeTips.description}
+               <p className="text-xs text-slate-500 mt-3">
+                O comando `/execute` é poderoso! Ele permite modificar o contexto de execução de outros comandos.
+                Experimente combinar <code className="font-mono text-xs bg-slate-700 px-1 py-0.5 rounded">as</code>, <code className="font-mono text-xs bg-slate-700 px-1 py-0.5 rounded">at</code>, <code className="font-mono text-xs bg-slate-700 px-1 py-0.5 rounded">if/unless</code>, <code className="font-mono text-xs bg-slate-700 px-1 py-0.5 rounded">positioned</code>, <code className="font-mono text-xs bg-slate-700 px-1 py-0.5 rounded">rotated</code>, <code className="font-mono text-xs bg-slate-700 px-1 py-0.5 rounded">facing</code>, <code className="font-mono text-xs bg-slate-700 px-1 py-0.5 rounded">in</code> e finalize com <code className="font-mono text-xs bg-slate-700 px-1 py-0.5 rounded">run &lt;comando&gt;</code>.
+            </p>
+               {/* {executeTips.description} */}
             </p>
           </div>
           }

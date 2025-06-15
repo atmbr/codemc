@@ -24,7 +24,7 @@ const MinecraftCommandTool = () => {
   const [simulationResult, setSimulationResult] = useState(null);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [commandHistory, setCommand] = useState("");
+// const [commandHistory, setCommand] = useState("");
   const inputRef = useRef(null);
 
   const {
@@ -140,12 +140,12 @@ const [commandHistory, setCommand] = useState("");
 
     const result = simulateCommandExecution(parsedCommand);
     setSimulationResult(result);
-    if(result){
-      let history = JSON.parse(localStorage.getItem('history')) || [];
-      console.log(history)
-      history.push(input);
-      localStorage.setItem('history', JSON.stringify(history));
-    }
+    // if(result){
+    //   let history = JSON.parse(localStorage.getItem('history')) || [];
+    //   console.log(history)
+    //   history.push(input);
+    //   localStorage.setItem('history', JSON.stringify(history));
+    // }
     toast({
       title: "Comando simulado!",
       description: "Veja o resultado da simulação abaixo.",
@@ -213,7 +213,7 @@ const [commandHistory, setCommand] = useState("");
             onSimulate={handleSimulate}
             onCopy={handleCopy}
             onReset={handleReset}
-            onHistory={handleHistory}
+            // onHistory={handleHistory}
           />
         </div>
       </motion.div>

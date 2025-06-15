@@ -53,22 +53,22 @@ const MinecraftCommandTool = () => {
   } = useCommandValidation();
 
   useEffect(() => {
-    if (commandHistory) {
-    setInput(commandHistory);  // Preenche o input
-    setIsModalOpen(false);     // Fecha o modal
+  //   if (commandHistory) {
+  //   setInput(commandHistory);  // Preenche o input
+  //   setIsModalOpen(false);     // Fecha o modal
 
-    setTimeout(() => {
-      inputRef.current?.focus(); // Foca no input
-    }, 0);
+  //   setTimeout(() => {
+  //     inputRef.current?.focus(); // Foca no input
+  //   }, 0);
 
-    setCommand(null); // <- limpa o valor para não reusar
-  }
+  //   setCommand(null); // <- limpa o valor para não reusar
+  // }
     if (input && !unknownCommandError) {
       validateCommand(parsedCommand);
     } else {
       validateCommand(null); 
     }
-  }, [commandHistory,parsedCommand, validateCommand, input, unknownCommandError]);
+  }, [/*commandHistory,*/parsedCommand, validateCommand, input, unknownCommandError]);
 
   const handleInputChange = (value, position) => {
     setInput(value);

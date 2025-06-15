@@ -144,7 +144,7 @@ const [commandHistory, setCommand] = useState("");
     setSimulationResult(result);
     if(result){
       let history = JSON.parse(localStorage.getItem('history')) || [];
-      history.push(input);
+      history.push(input.toLowerCase());
       localStorage.setItem('history', JSON.stringify(history));
     }
     toast({

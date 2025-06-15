@@ -105,7 +105,10 @@ const generateStandardSuggestions = (argDef, currentText, commands) => {
       }
       break;
   }
-  return suggestions.filter(s => s.value.toLowerCase().startsWith(currentText.toLowerCase()));
+  if (argDef.type === 'item' || argDef.type === 'block_id') {
+  return suggestions.filter(s => s.value === currentText);
+}
+return suggestions.filter(s => s.value.toLowerCase().startsWith(currentText.toLowerCase()));
 }
 
 

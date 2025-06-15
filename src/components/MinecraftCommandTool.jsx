@@ -53,9 +53,7 @@ const [commandHistory, setCommand] = useState("");
   } = useCommandValidation();
 
   useEffect(() => {
-      console.log(commandHistory)
     if (commandHistory) {
-      console.log(commandHistory)
     setInput(commandHistory);  // Preenche o input
     setIsModalOpen(false);     // Fecha o modal
 

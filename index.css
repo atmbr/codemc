@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cores base em modo dark */
+    --bg-header: 218 80% 2% / 80%;
+    --bg-300: 216, 28%, 11%;
+    --bg-200: 216, 28%, 7%;
+    --bg-100:  218, 80%, 2%;
+    --background: 220 13% 9%;
+    --foreground: 220 9% 95%;
+    --card: 220 13% 11%;
+    --card-foreground: 220 9% 95%;
+    --popover: 220 13% 11%;
+    --popover-foreground: 220 9% 95%;
+    --primary: 0 0% 6%;
+    --primary-foreground: 355 7% 97%;
+    --secondary: 220 13% 15%;
+    --secondary-foreground: 220 9% 95%;
+    --muted: 220 13% 15%;
+    --muted-foreground: 220 9% 63%;
+    --accent: 220 13% 15%;
+    --accent-foreground: 220 9% 95%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 355 7% 97%;
+    --border: 220 13% 18%;
+    --input: 220 13% 18%;
+    --ring: 142 76% 36%;
+    --radius: 0.5rem;
+
+    /* Tema Minecraft */
+    --mc-green: #3C8527;
+    --mc-brown: #835c3b;
+    --mc-light: #1e1e1e;
+    --mc-dark: #eeeeee;
+    --mc-card: #2d2d2d;
+    --mc-black: #171615;
+    --mc-card-black: #171615;
+    --mc-link: #6CC349;
+    --mc-select: #86d562;
+    --mc-border: #85807f;
+    --mc-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+    --bg-nav-active: var(--mc-black);
+    --bg-search: var(--bg-nav-active);
+    /* --bg-header: rgba(38, 36, 35, .9); */
+    --bg-body: var(--bg-nav-active);
+    --bg-footer: var(--bg-nav-active);
+
+    /* Fontes */
+    --font-main: "Noto Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    --font-mc-seven: 'Minecraft Seven', Arial, Helvetica, sans-serif;
+    --font-mc-ten: 'Minecraft Ten', Arial, Helvetica, sans-serif;
+
+    /* Font sizes */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-md2: 1rem;
+    --font-size-lg: 1.45rem;
+    --font-size-xl: 1.6rem;
+    --font-size-xxl: 2.6rem;
+    --font-size-title: 3rem;
+    --font-size-logo: calc(var(--font-size-title) - 10px);
+
+    /* Espaçamentos */
+    --space-xs: 5px;
+    --space-sm: 10px;
+    --space-md: 20px;
+    --space-lg: 30px;
+    --space-xl: 40px;
+    --pd-spot: 50px;
+    --margin-safe: var(--space-md);
+    --pd-btn-x: var(--space-md);
+    --pd-btn-y: var(--space-sm);
+
+    /* Gaps */
+    --gap-xs: 4px;
+    --gap-sm: 8px;
+    --gap-md: 10px;
+    --gap-lg: 20px;
+    --gap-xl: 30px;
+    --gap-xxl: 40px;
+
+    /* Tamanhos */
+    --line-height-title: 1.2;
+    --line-height-text: 24px;
+    --header-height: 40px;
+    --header-padding: var(--space-md);
+    --nav-padding: var(--header-padding);
+    --carousel-height: 600px;
+    --carousel-list-height: 100px;
+    --max-width: 900px;
+    --card-max-width: 440px;
+    --card-padding: var(--space-md);
+    --icon-size: 10px;
+    --btn-min-width: 150px;
+    --btn-max-width: 250px;
+
+    /* Bordas */
+    --btn-border-radius: 0px;
+    --border-style: 5px solid var(--mc-border);
+    --select-item-border: 2px solid;
+    --border-radius-sm: 5px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 20px;
+
+    /* Sombreamento */
+    --btn-shadow: inset 0 -5px 0 #2a641c;
+    --box-shadow: var(--mc-shadow);
+
+    /* Clipping paths */
+    --clip-arrow: polygon(...);
+    --clip-menu: polygon(...);
+    --clip-open-tab: polygon(...);
+    --clip-close: polygon(...);
+
+    /* Transições e camadas */
+    --transition-fast: 0.15s;
+    --transition-normal: 0.3s;
+    --transition-slow: 0.5s;
+    --opacity-disabled: 0.5;
+    --z-index-header: 20;
+    --z-index-modal: 99;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@font-face {
+  font-family: 'Minecraft Seven';
+  src: url('../src/fonts/minecraft-seven.otf.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Minecraft Ten';
+  src: url('../src/fonts/minecraft-ten.otf.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NotoSans';
+  src: url('../src/fonts/NotoSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Font utility classes */
+.font-ten {
+  font-family: var(--font-mc-ten);
+}
+.font-seven {
+  font-family: var(--font-mc-seven);
+}
+.minecraft-font {
+  font-family: var(--font-mc-seven);
+  font-weight: bold;
+}
+html, :host {
+  font-family: var(--font-main);
+}
+.bg-100{
+  background-color: hsl(var(--bg-100));
+}
+.bg-200{
+  background-color:  hsl(var(--bg-200));
+}
+.bg-300{
+  background-color: hsl(var(--bg-300));
+}
+.bg-card{
+  background-color: hsl(var(--bg-200));
+}
+.bg-header{
+  background-color: hsl(var(--bg-header));
+}
+/* Componentes interativos */
+.command-input {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  transition: all 0.3s ease;
+}
+.command-input:focus {
+  border-color: rgba(34, 197, 94, 0.6);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+}
+.suggestion-item {
+  transition: all 0.2s ease;
+}
+.suggestion-item:hover {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(59, 130, 246, 0.2));
+  transform: translateX(4px);
+}
+.command-preview {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  backdrop-filter: blur(10px);
+}
+.error-highlight {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+  border: 1px solid rgba(239, 68, 68, 0.5);
+}
+.success-highlight {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.2));
+  border: 1px solid rgba(34, 197, 94, 0.5);
+}
+.coordinate-input {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+.coordinate-input:focus {
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+/* Efeitos */
+.glow-effect {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+  }
+}
+.typing-animation {
+  animation: typing 0.5s ease-in-out;
+}
+@keyframes typing {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

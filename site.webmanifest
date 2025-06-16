@@ -1,0 +1,23 @@
+{
+  "name": "CodeMC - Ferramenta de Comandos Minecraft",
+  "short_name": "CodeMC",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#010409cc",
+  "theme_color": "#22c55e",
+  "description": "Ferramenta online para criar, validar e simular comandos Minecraft facilmente.",
+  "icons": [
+    {
+      "src": "./src/assets/imagem/codemc/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./src/assets/imagem/codemc/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

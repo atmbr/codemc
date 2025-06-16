@@ -36,9 +36,9 @@ const [commandHistory, setCommand] = useState("");
   showAlert: showNewsAlert
 } = useAlert('alertModalSeen_v2');
 
+console.clear()
 
   useEffect(() => {
-    
     checkAndShowNewsAlert();
   }, [checkAndShowNewsAlert]);
 
@@ -57,16 +57,6 @@ const [commandHistory, setCommand] = useState("");
   } = useCommandValidation();
 
   useEffect(() => {
-    fetch('/news.json')
-    .then(response => response.json())
-    .then(data => {
-      // Faça algo com os dados, por exemplo, salvar em um estado
-      // Exemplo: setNews(data);
-      // console.log('News:', data);
-    })
-    .catch(error => {
-      console.error('Erro ao buscar news.json:', error);
-    });
     if (commandHistory) {
     setInput(commandHistory);  // Preenche o input
     setIsModalOpen(false);     // Fecha o modal
@@ -272,7 +262,7 @@ const SupportSection = ({ language = "pt", showSupport, setShowSupport }) => {
         </div>
 
         <SupportSection
-  language="en"
+  language="pt"
   showSupport={showSupport}
   setShowSupport={setShowSupport}
 />

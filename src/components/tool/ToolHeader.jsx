@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Terminal, BookOpen, AlertTriangle } from 'lucide-react';
+import { Terminal, BookOpen, AlertTriangle, BellDotIcon, BellIcon } from 'lucide-react';
 
 const ToolHeader = ({ onHelpClick, onAlertClick }) => (
   <div className="flex items-center justify-between mb-4">
@@ -10,13 +10,13 @@ const ToolHeader = ({ onHelpClick, onAlertClick }) => (
     </div>
     <div className="flex items-center space-x-2">
        <Button
-      title="Avisos"
+      title="Atualizações"
         variant="ghost"
         size="icon"
         onClick={onAlertClick}
         className="text-slate-400 hover:text-yellow-400"
       >
-        <AlertTriangle className="w-5 h-5" />
+        <BellIcon className="w-5 h-5" />
       </Button>
       <Button
       title="Dicas"

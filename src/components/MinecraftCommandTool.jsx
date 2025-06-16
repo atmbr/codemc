@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
-
+import { Button } from '@/components/ui/button';
 import CommandInput from '@/components/CommandInput';
 import CommandSuggestions from '@/components/CommandSuggestions';
 import CommandPreview from '@/components/CommandPreview';
@@ -15,24 +15,28 @@ import TemplateModal from '@/components/TemplateModal'
 import { useCommandParser } from '@/hooks/useCommandParser';
 import { useCommandValidation } from '@/hooks/useCommandValidation';
 import { simulateCommandExecution } from '@/lib/commandSimulator';
-import useAlert from '@/hooks/useAlert';
+import ReportBugsForm from '@/ReportBugsForm';
 
+import useAlert from '@/hooks/useAlert';
+import SupportModal from '@/components/supportModal'
 const MinecraftCommandTool = () => {
   const [input, setInput] = useState('');
   const [cursorPosition, setCursorPosition] = useState(0);
   const [simulationResult, setSimulationResult] = useState(null);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+   const [showSupport, setShowSupport] = useState(false);
 const [commandHistory, setCommand] = useState("");
   const inputRef = useRef(null);
 
   const {
-    isAlertOpen: isNewsAlertOpen,
-    checkAndShowAlert: checkAndShowNewsAlert,
-    closeAlertAndRemember: closeNewsAlert,
-    showAlert: showNewsAlert
-  } = useAlert('alertModalSeen_v2');
-  
+  isAlertOpen: isNewsAlertOpen,
+  checkAndShowAlert: checkAndShowNewsAlert,
+  closeAlertAndRemember: closeNewsAlert,
+  showAlert: showNewsAlert
+} = useAlert('alertModalSeen_v2');
+
+
   useEffect(() => {
     
     checkAndShowNewsAlert();
@@ -120,6 +124,14 @@ const [commandHistory, setCommand] = useState("");
     }, 0);
   }, [input, cursorPosition]);
 
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){
+      const isInputFocused = document.activeElement === inputRef.current;
+      if (isInputFocused) {
+        handleSimulate();
+      }
+    }
+  })
   const handleSimulate = () => {
     if (unknownCommandError) {
        toast({
@@ -192,6 +204,39 @@ const [commandHistory, setCommand] = useState("");
 
     return suggestions.length > 0 && (lastCharIsSpace || !currentArgument?.value || noExactMatchSuggestion);
   };
+const SupportSection = ({ language = "pt", showSupport, setShowSupport }) => {
+  const labels = {
+    pt: {
+      button: "Apoiar Projeto ❤️",
+      notice: "Novidades e melhorias a caminho — seu apoio faz a diferença!",
+    },
+    en: {
+      button: "Support Project ❤️",
+      notice: "New features and improvements coming soon — your support makes a difference!",
+    },
+  };
+
+  const { button, notice } = labels[language] || labels.pt;
+
+  return (
+    <div className="mt-6 p-4 bg-gradient-to-r from-pink-500 via-pink-600 to-pink-700 rounded-xl max-w-xs mx-auto text-center shadow-xl ring-2 ring-pink-400 hover:ring-pink-500 transition duration-300 ease-in-out">
+      <Button
+        onClick={() => setShowSupport(true)}
+        className="bg-white text-pink-700 font-semibold px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-transform duration-300 ease-in-out"
+        type="button"
+      >
+        {button}
+      </Button>
+      <p className="mt-2 text-sm text-pink-100 font-medium select-none">{notice}</p>
+
+      <SupportModal
+        isOpen={showSupport}
+        onOpenChange={() => setShowSupport(false)}
+        language={language}
+      />
+    </div>
+  );
+};
 
 
   return (
@@ -225,8 +270,13 @@ const [commandHistory, setCommand] = useState("");
             onHistory={handleHistory}
           />
         </div>
-      </motion.div>
 
+        <SupportSection
+  language="en"
+  showSupport={showSupport}
+  setShowSupport={setShowSupport}
+/>
+      </motion.div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -257,21 +307,14 @@ const [commandHistory, setCommand] = useState("");
       </div>
       
       <SimulationArea result={simulationResult} />
-      
+      <ReportBugsForm />
       <HelpModal isOpen={isHelpModalOpen} setIsOpen={setIsHelpModalOpen} />
       <AlertModal 
         isOpen={isNewsAlertOpen} 
         onOpenChange={closeNewsAlert}
-        title="Melhorias na Ferramenta!"
-      >
-        <p className="mb-2">Olá! A sua ferramenta de comandos foi atualizada:</p>
-        <ul className="list-disc list-inside space-y-1 text-slate-400">
-            <li>Agora a lógica de adicionar argumentos está mais robusta.</li>
-            <li>O modal de alerta pode ser aberto por um botão e só aparece uma vez por padrão.</li>
-            <li>O código foi refatorado para melhor organização e performance!</li>
-        </ul>
-        <p className="mt-3">Explore as novidades!</p>
-      </AlertModal>
+      />
+      
+      
       <Modal setCommand={setCommand} isOpen={isModalOpen} history={true} setIsOpen={setIsModalOpen} title="Histórico:" description="Aqui estara o histrico." children="" footer=""/>
     </div>
   );

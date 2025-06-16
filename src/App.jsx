@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Toaster } from '@/components/ui/toaster';
+import { Button } from '@/components/ui/button';
 import MinecraftCommandTool from '@/components/MinecraftCommandTool';
 
 function App() {
@@ -27,14 +28,15 @@ function App() {
                 </div>
               </div>
             </div>
+            
           </div>
-          
         </header>
-
+        
         <main className="container mx-auto px-4 py-8">
           <MinecraftCommandTool />
-        </main>
 
+
+        </main>
         <footer className="text-center py-8 mt-12 border-t border-slate-700/50">
           <p className="text-slate-500 text-sm">
             Criado com <span className="text-red-400">❤️</span> por Hostinger Horizons AI.

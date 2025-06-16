@@ -16,7 +16,6 @@ const HelpModal = ({ isOpen, setIsOpen }) => {
   const commonCommands = displayMessage.dicas.command.info;
 
   const executeTips = displayMessage.dicas.command.extra;
-console.log(executeTips.title)
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-[625px] bg-slate-800/90 backdrop-blur-md border-slate-700 text-slate-100">

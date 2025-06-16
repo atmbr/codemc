@@ -10,6 +10,7 @@ const ToolHeader = ({ onHelpClick, onAlertClick }) => (
     </div>
     <div className="flex items-center space-x-2">
        <Button
+      title="Avisos"
         variant="ghost"
         size="icon"
         onClick={onAlertClick}
@@ -18,6 +19,7 @@ const ToolHeader = ({ onHelpClick, onAlertClick }) => (
         <AlertTriangle className="w-5 h-5" />
       </Button>
       <Button
+      title="Dicas"
         variant="ghost"
         size="icon"
         onClick={onHelpClick}

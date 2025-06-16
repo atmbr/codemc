@@ -13,7 +13,6 @@ function App() {
 <link rel="shortcut icon" type="image/png" href="../../src/assets/imagem/codemc/favicon/favicon-96x96.png" sizes="96x96" />
 <link rel="apple-touch-icon" sizes="180x180" href="../../srcassets/imagem/codemc/favicon/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="CodeMc" />
-<link rel="manifest" href="../../site.webmanifest" />
         <meta
           name="description"
           content="CodeMC ajuda jogadores Minecraft a criar, validar e simular comandos facilmente, eliminando erros e dúvidas. Use nosso editor intuitivo para comandos Minecraft e jogue sem complicação."

@@ -9,9 +9,9 @@ function App() {
    <HelmetProvider>
       <Helmet>
         <title>CodeMC | Ferramenta para Comandos Minecraft</title>
-<link rel="icon" href="../src/assets/imagem/codemc/favicon/favicon.ico" />
-<link rel="shortcut icon" type="image/png" href="../../src/assets/imagem/codemc/favicon/favicon-96x96.png" sizes="96x96" />
-<link rel="apple-touch-icon" sizes="180x180" href="../../srcassets/imagem/codemc/favicon/apple-touch-icon.png" />
+<link rel="icon" href="https://i.imgur.com/RGnReHp.png" />
+<link rel="shortcut icon" type="image/png" href="https://i.imgur.com/RGnReHp.png" sizes="96x96" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/RGnReHp.png" />
 <meta name="apple-mobile-web-app-title" content="CodeMc" />
         <meta
           name="description"

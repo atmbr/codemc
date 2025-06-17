@@ -56,7 +56,7 @@ function App() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4 ">
                 <div className="w-16 h-12 flex items-center justify-center">
-                  <img src="./src/assets/imagem/codemc/codemc-logo.png" alt="" className="w-auto h-auto  pointer-events-none" />
+                  <img src="https://i.imgur.com/RGnReHp.png" alt="" className="w-auto h-auto  pointer-events-none" />
                 </div>
                 <div>
                   <h1 className="font-ten text-3xl bg-gradient-to-r bg-white bg-clip-text text-transparent  pointer-events-none">

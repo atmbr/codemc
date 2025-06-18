@@ -19,7 +19,7 @@ const ReportBugsForm = () => {
           type="text"
           id="name"
           name="name"
-          required
+          required 
           className="bg-300 border border-slate-600 text-slate-100 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>

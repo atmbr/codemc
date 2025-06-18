@@ -1,108 +1,151 @@
+export const simulateCommandExecution = (command) => {
+  if (!command || !command.name) return null;
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Terminal, CheckCircle, AlertCircle, Zap } from 'lucide-react';
+  const responses = {
+    give: (args) => {
+      const target = args.find(a => a.type === 'player')?.value || '@p';
+      const item = args.find(a => a.type === 'item')?.value || 'minecraft:stone';
+      const amount = args.find(a => a.type === 'number')?.value || '1';
+      return {
+        success: true,
+        message: `Deu ${amount}x ${item.replace('minecraft:', '')} para ${target}`,
+        details: `Item entregue com sucesso!`
+      };
+    },
+    xp: (args) => {
+      const action = args.find(a => a.name === 'action')?.value || 'query';
+      const target = args.find(a => a.name === 'target')?.value || '@p';
+      const amount = args.find(a => a.name === 'amount')?.value || '0';
+      const unit = args.find(a => a.name === 'unit')?.value || 'points';
+      
+      switch(action) {
+          case 'add':
+              return {
+                  success: true,
+                  message: `Adicionado ${amount} ${unit} de experiência para ${target}`,
+                  details: `Experiência alterada com sucesso!`
+              };
+          case 'set':
+               return {
+                  success: true,
+                  message: `Experiência de ${target} definida para ${amount} ${unit}`,
+                  details: `Experiência alterada com sucesso!`
+              };
+          case 'query':
+               return {
+                  success: true,
+                  message: `Consultando experiência de ${target}`,
+                  details: `Consulta de experiência realizada.`
+              };
+          default:
+               return {
+                  success: false,
+                  message: `Ação '${action}' desconhecida para /xp`,
+                  details: `Ação inválida.`
+              };
+      }
+    },
+    tp: (args) => {
+      const target = args.find(a => a.name === 'target')?.value || '@p';
+      const coords = args.filter(a => ['coordinate', 'player_or_coordinate'].includes(a.type) && a.value);
+      
+      if (coords.length > 1) {
+        return {
+          success: true,
+          message: `Teletransportado(a) ${target} para ${coords.map(c => c.value).join(' ')}`,
+          details: `Teletransporte para coordenadas realizado!`
+        };
+      }
+      if (coords.length === 1) {
+         return {
+           success: true,
+           message: `Teletransportado(a) ${target} para ${coords[0].value}`,
+           details: `Teletransporte de entidade p/ coordenada realizado!`
+         };
+      }
+      return {
+        success: true,
+        message: `Teleportando ${target}`,
+        details: `Comando de teletransporte processado!`
+      };
+    },
+    gamemode: (args) => {
+      const mode = args.find(a => a.type === 'gamemode')?.value || 'survival';
+      const target = args.find(a => a.type === 'player')?.value || '@p';
+      return {
+        success: true,
+        message: `Modo de jogo de ${target} alterado para ${mode}`,
+        details: `Modo de jogo alterado com sucesso!`
+      };
+    },
+    time: (args) => {
+      const action = args.find(a => a.type === 'time_action')?.value || 'query';
+      const value = args.find(a => a.type.includes('time_value'))?.value;
+      if (action === 'set' && value) {
+        return {
+          success: true,
+          message: `Tempo definido para ${value}`,
+          details: `Horário do mundo alterado!`
+        };
+      }
+      return {
+        success: true,
+        message: `Ação de tempo: ${action}`,
+        details: `Comando de tempo executado!`
+      };
+    },
+    say: (args) => {
+      const target = args.find(a => a.name === 'target')?.value;
+      const message = args.find(a => a.name === 'mensagem')?.value || '';
+      if(target){
+          return {
+              success: true,
+              message: `[${target}] ${message}`,
+              details: `Mensagem enviada.`
+          };
+      }
+      return {
+        success: true,
+        message: `[Você] ${message}`,
+        details: `Mensagem enviada no chat.`
+      };
+    },
+    execute: (args) => {
+      let message = "Executando: ";
+      const buildExecuteMessage = (execArgs) => {
+        if (!execArgs) return "";
+        return execArgs.map(arg => {
+          let part = arg.name;
+          if (arg.arguments && arg.arguments.length > 0) {
+            const simpleArgs = arg.arguments.filter(a => a.value && a.type !== 'execute_chain' && a.type !== 'command_string').map(a => a.value).join(' ');
+            if (simpleArgs) part += ` ${simpleArgs}`;
 
-const CommandSimulator = ({ result }) => {
-  if (!result) return null;
+            const chainArg = arg.arguments.find(a => a.type === 'execute_chain');
+            if (chainArg && chainArg.subCommandArgs) {
+              part += ` ${buildExecuteMessage(chainArg.subCommandArgs)}`;
+            }
+            const runArg = arg.arguments.find(a => a.type === 'command_string');
+            if (runArg && runArg.value) {
+              part += ` run /${runArg.value}`;
+            }
+          }
+          return part;
+        }).join(' ');
+      };
+      message += buildExecuteMessage(args);
+      return {
+        success: true,
+        message: message,
+        details: "Comando /execute processado."
+      };
+    }
+  };
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6"
-    >
-      <div className="flex items-center space-x-3 mb-4">
-        <Terminal className="w-6 h-6 text-green-400" />
-        <h3 className="text-xl font-semibold text-white">Resultado da Simulação</h3>
-      </div>
-
-      <div className="space-y-4">
-        {/* Status */}
-        <div className={`p-4 rounded-lg border ${
-          result.success 
-            ? 'bg-green-500/10 border-green-500/30' 
-            : 'bg-red-500/10 border-red-500/30'
-        }`}>
-          <div className="flex items-center space-x-3">
-            {result.success ? (
-              <CheckCircle className="w-6 h-6 text-green-400" />
-            ) : (
-              <AlertCircle className="w-6 h-6 text-red-400" />
-            )}
-            <div>
-              <h4 className={`font-semibold ${
-                result.success ? 'text-green-400' : 'text-red-400'
-              }`}>
-                {result.success ? 'Comando executado com sucesso!' : 'Erro na execução'}
-              </h4>
-              <p className={`text-sm mt-1 ${
-                result.success ? 'text-green-300' : 'text-red-300'
-              }`}>
-                {result.message}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Console Output */}
-        <div className="bg-slate-900/80 rounded-lg p-4 border border-slate-600/50">
-          <div className="flex items-center space-x-2 mb-3">
-            <div className="w-3 h-3 rounded-full bg-red-400"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-            <div className="w-3 h-3 rounded-full bg-green-400"></div>
-            <span className="text-slate-400 text-sm ml-2">Console do Minecraft</span>
-          </div>
-          
-          <div className="font-mono text-sm space-y-2">
-            <div className="text-slate-400">
-              [INFO] Executando comando...
-            </div>
-            <div className={`${result.success ? 'text-green-400' : 'text-red-400'}`}>
-              [RESULTADO] {result.message}
-            </div>
-            {result.details && (
-              <div className="text-blue-400">
-                [DETALHES] {result.details}
-              </div>
-            )}
-            <div className="text-slate-400">
-              [INFO] Comando processado em {Math.random() * 50 + 10 | 0}ms
-            </div>
-          </div>
-        </div>
-
-        {/* Visual Feedback */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="flex items-center justify-center p-6 bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-lg border border-green-500/20"
-        >
-          <div className="text-center">
-            <motion.div
-              animate={{ 
-                scale: [1, 1.2, 1],
-                rotate: [0, 360, 0]
-              }}
-              transition={{ 
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="inline-block mb-3"
-            >
-              <Zap className="w-8 h-8 text-yellow-400" />
-            </motion.div>
-            <p className="text-white font-medium">Simulação concluída!</p>
-            <p className="text-slate-400 text-sm mt-1">
-              O comando seria executado no jogo com este resultado
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
+  const handler = responses[command.name] || (() => ({
+    success: true,
+    message: `Comando /${command.name} executado`,
+    details: `Comando processado com sucesso!`
+  }));
+  
+  return handler(command.arguments || []);
 };
-
-export default CommandSimulator;

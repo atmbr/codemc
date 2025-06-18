@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import CommandSimulator from '@/components/CommandSimulator';
+import CommandSimulator from '../CommandSimulator';
 
 const SimulationArea = ({ result }) => (
   <AnimatePresence>

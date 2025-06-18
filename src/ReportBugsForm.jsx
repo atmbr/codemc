@@ -19,7 +19,7 @@ const ReportBugsForm = () => {
           type="text"
           id="name"
           name="name"
-          required 
+          required
           className="bg-300 border border-slate-600 text-slate-100 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
@@ -64,15 +64,13 @@ const ReportBugsForm = () => {
           className="bg-300 border border-slate-600 text-slate-100 p-2 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
         ></textarea>
       </div>
-    <div className="grid align-bottom">
+
       <button
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex-1"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex"
       >
         Enviar
       </button>
-    </div>
-      
     </form>
   );
 };

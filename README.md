@@ -1,29 +1,52 @@
-## 👋 Sobre o Projeto
+<p align="center">
+  <img 
+    src="https://github.com/user-attachments/assets/26f4f987-f9f2-4f56-b74b-5817d342475b" 
+    alt="CodeMC Logo" 
+    width="200"
+  />
+</p>
 
-Opa! Tudo certo? Eu sou o **Atm**, só mais um jogador que adora explorar o lado técnico do Minecraft.
+# 🧱 CodeMC – Simule e monte comandos Minecraft com facilidade
 
-Com o tempo, percebi que muita gente se confunde nessa parte. Então pensei: _por que não criar algo que torne tudo mais visual e fácil de entender?_ Foi aí que nasceu esta ferramenta!
+Olá! 👋 Eu sou o **Atm** – um jogador apaixonado pelo lado técnico do Minecraft.
 
-> A ideia é simples: te ajudar a montar comandos, testar variações e entender melhor como eles funcionam — direto no navegador, sem complicação.
+Sempre gostei de fuçar em comandos, blocos de comando, sistemas e mecânicas mais avançadas. Com o tempo, percebi que muita gente se perde nessa parte: comandos quebram, a sintaxe confunde, e testar no jogo pode ser bem demorado.
 
-Nada aqui é super profissional, mas tudo foi feito com carinho, pensando em quem tá começando ou só quer economizar tempo. 😊
+Foi aí que nasceu o **CodeMC**.
 
----
+> Uma ferramenta online, leve e intuitiva, feita para quem quer montar, validar e testar comandos do Minecraft — direto do navegador.
 
-### ⚠️ Aviso
-Essa ferramenta **ainda está em construção**. Pode conter alguns erros ou comportamentos inesperados.  
-Se algo parecer estranho, respira fundo — e se puder, me manda um feedback. Vai ajudar muito!
-
----
-
-### 💡 O que dá pra fazer por aqui?
-
-- Montar comandos com sugestões automáticas
-- Evitar de perder tudo ao errar um comando no jogo
-- Testar ideias rapidamente, sem abrir o mundo
-- Explorar a estrutura de comandos com mais clareza
+Não é nada ultra profissional, mas tudo foi feito com carinho, pensando em quem:
+- está começando no Minecraft técnico;
+- quer entender melhor os comandos;
+- ou só quer economizar tempo e evitar dor de cabeça. 😊
 
 ---
 
-> No fim das contas, essa é uma ferramenta feita **por um jogador, para outros jogadores**.  
-> Nada aqui é oficial — mas se te ajudar nem que seja um pouquinho, já valeu a pena 💚
+### ✨ Principais recursos
+
+- Sugestões automáticas de comandos enquanto você digita
+- Prevenção de erros comuns de sintaxe
+- Simulação de comandos e variações em tempo real
+- Interface simples e acessível, direto do navegador
+- Funciona com comandos da **versão Bedrock** e compatíveis
+
+---
+
+### 🚧 Status do projeto
+
+> **Versão atual:** `0.1 Beta`  
+> A ferramenta está em desenvolvimento ativo. Pode haver bugs ou comportamentos inesperados.  
+> **Feedbacks são extremamente bem-vindos!**
+
+---
+
+### 💚 Como contribuir
+
+Se você curte o projeto, tem sugestões ou quer ajudar de alguma forma — seja com código, ideias, testes ou divulgação — fique à vontade!
+
+```bash
+git clone https://github.com/atmbr/McpeSite
+cd McpeSite
+npm install
+npm run dev

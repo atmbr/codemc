@@ -1,0 +1,20 @@
+{
+    "routes": [
+        {
+            "src": "^/$",
+            "dest": "/app.jsx"
+        },
+        {
+            "src": "^/sobre$",
+            "dest": "/src/pages/sobre.jsx"
+        },
+        {
+            "src": "^/termos$",
+            "dest": "/src/pages/termos.jsx"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/src/pages/404.jsx"
+        }
+    ]
+}

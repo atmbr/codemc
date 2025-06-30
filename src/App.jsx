@@ -42,9 +42,9 @@ console.log()
    <HelmetProvider>
       <Helmet>
         <title>{SITENAME} - {SLOGAN}</title>
-<link rel="icon" href="../../src/assets/imagem/codemc/favicon/favicon.ico" />
-<link rel="shortcut icon" type="image/png" href="../../src/assets/imagem/codemc/favicon/favicon-96x96.png" sizes="96x96" />
-<link rel="apple-touch-icon" sizes="180x180" href="../../src/assets/imagem/codemc/favicon/apple-touch-icon.png" />
+<link rel="icon" href="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/codemc/favicon/favicon.ico" />
+<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/codemc/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/codemc/favicon/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content={SITENAME} />
         <meta
           name="description"
@@ -67,7 +67,7 @@ console.log()
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://codemc.vercel.app" />
-        <meta property="og:image" content="https://codemc.vercel.app/src/assets/imagem/codemc-social.png" />
+        <meta property="og:image" content="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/codemc-social.png" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -76,7 +76,7 @@ console.log()
           name="twitter:description"
           content={DESCRIPTION}
         />
-        <meta name="twitter:image" content="https://codemc.vercel.app/src/assets/imagem/codemc-social.png" />
+        <meta name="twitter:image" content="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/codemc-social.png" />
 
       </Helmet>
     <div className="min-h-screen bg-primary bg-100">

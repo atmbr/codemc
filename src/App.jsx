@@ -90,7 +90,7 @@ console.log()
               <div className="flex items-center space-x-4 ">
                 <div className="w-16 h-12 flex items-center justify-center">
                 <a href="/">
-                  <img src="./src/assets/imagem/codemc/codemc-logo.png" alt="" className="w-auto h-auto  pointer-events-none" />
+                  <img src="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/codemc/codemc-logo.png" alt="" className="w-auto h-auto  pointer-events-none" />
                 </a>
                 </div>
                 <div>

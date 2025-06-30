@@ -4,46 +4,79 @@ import { Toaster } from '@/components/ui/toaster';
 import { Button } from '@/components/ui/button';
 import MinecraftCommandTool from '@/components/MinecraftCommandTool';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import sobrePage from './pages/sobre.jsx';
+import termoPage from './pages/termos.jsx';
+import PaginaErro from './pages/404.jsx';
+import siteInfo from "@/data/siteInfo.js";
+
 function App() {
+  const [SITENAME, SLOGAN, MINSLOGAN, DESCRIPTION, AUTHOR, GITHUB, YOUTUBE, KEYWORDS,VERSION, LANGUAGE, PAGES, SOCIAL] = Object.values(siteInfo);
+  const [Sobre, sobreN, sobreP] = sobrePage;
+const [Termos, termosN, termosP] = termoPage;
+
+
+  function AppContent() {
+  const location = useLocation();
+  // Verifica se a URL atual é exatamente "/sobre"
+  switch (location.pathname) {
+    case "/":
+      document.title = `${SITENAME} - ${SLOGAN}`;
+      return <MinecraftCommandTool />
+    case sobreP:
+      document.title = `${sobreN} - ${SITENAME}`;  
+      return <Sobre />
+      case termosP:
+      console.log(termosN)
+      document.title = `${termosN} - ${SITENAME}`;  
+      return <Termos />
+    default:
+      console.log("Página não encontrada");
+      document.title = `${SITENAME} - ${SLOGAN}`;
+      return <PaginaErro />
+  }
+}
+console.log()
+
   return (
    <HelmetProvider>
       <Helmet>
-        <title>CodeMC | Ferramenta para Comandos Minecraft</title>
-<link rel="icon" href="https://i.imgur.com/RGnReHp.png" />
-<link rel="shortcut icon" type="image/png" href="https://i.imgur.com/RGnReHp.png" sizes="96x96" />
-<link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/RGnReHp.png" />
-<meta name="apple-mobile-web-app-title" content="CodeMc" />
+        <title>{SITENAME} - {SLOGAN}</title>
+<link rel="icon" href="../../src/assets/imagem/codemc/favicon/favicon.ico" />
+<link rel="shortcut icon" type="image/png" href="../../src/assets/imagem/codemc/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../src/assets/imagem/codemc/favicon/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content={SITENAME} />
         <meta
           name="description"
-          content="CodeMC ajuda jogadores Minecraft a criar, validar e simular comandos facilmente, eliminando erros e dúvidas. Use nosso editor intuitivo para comandos Minecraft e jogue sem complicação."
+          content={DESCRIPTION}
         />
 
         <meta
           name="keywords"
-          content="comandos Minecraft, criar comandos Minecraft, validar comandos Minecraft, simular comandos Minecraft, editor de comandos Minecraft, ferramenta para jogadores, comandos sem erro, CodeMC, command, block, mcpe, minecraft, bedrock, java, online"
+          content={KEYWORDS.map(i => i.toLowerCase()).join(", ")}
         />
 
-        <meta name="author" content="CodeMC" />
+        <meta name="author" content={SITENAME} />
         <meta name="robots" content="index, follow" />
 
         {/* Open Graph para redes sociais */}
-        <meta property="og:title" content="CodeMC | Ferramenta para Comandos Minecraft" />
+        <meta property="og:title" content={{SITENAME} - {SLOGAN}} />
         <meta
           property="og:description"
-          content="Crie, valide e simule comandos Minecraft com CodeMC e elimine erros no jogo. Ferramenta prática e fácil para todos os jogadores Minecraft."
+          content={DESCRIPTION}
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://codemc.vercel.app" />
-        <meta property="og:image" content="https://codemc.vercel.app/imagem-codemc.png" />
+        <meta property="og:image" content="https://codemc.vercel.app/src/assets/imagem/codemc-social.png" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="CodeMC | Ferramenta para Comandos Minecraft" />
+        <meta name="twitter:title" content={{SITENAME} - {SLOGAN}} />
         <meta
           name="twitter:description"
-          content="Crie, valide e simule comandos Minecraft com CodeMC e elimine erros no jogo. Ferramenta prática e fácil para jogadores Minecraft."
+          content={DESCRIPTION}
         />
-        <meta name="twitter:image" content="https://codemc.vercel.app/imagem-codemc.png" />
+        <meta name="twitter:image" content="https://codemc.vercel.app/src/assets/imagem/codemc-social.png" />
 
       </Helmet>
     <div className="min-h-screen bg-primary bg-100">
@@ -56,14 +89,18 @@ function App() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4 ">
                 <div className="w-16 h-12 flex items-center justify-center">
-                  <img src="https://i.imgur.com/RGnReHp.png" alt="" className="w-auto h-auto  pointer-events-none" />
+                <a href="/">
+                  <img src="./src/assets/imagem/codemc/codemc-logo.png" alt="" className="w-auto h-auto  pointer-events-none" />
+                </a>
                 </div>
                 <div>
+                  <a href="/" className="block w-fit">
                   <h1 className="font-ten text-3xl bg-gradient-to-r bg-white bg-clip-text text-transparent  pointer-events-none">
                     Code<span  className='bg-green-500 e bg-clip-text text-transparent'>Mc</span>
                   </h1>
+                  </a>
                   <p className="text-slate-400 mt-1">
-                    Escreva, valide e simule comandos com facilidade.
+                    {MINSLOGAN}
                   </p>
                 </div>
               </div>
@@ -73,16 +110,30 @@ function App() {
         </header>
         
         <main className="container mx-auto px-4 py-8">
-          <MinecraftCommandTool />
-
-
+          <React.StrictMode>
+            <BrowserRouter>
+              <AppContent />
+            </BrowserRouter>
+        </React.StrictMode>
+        
         </main>
         <footer className="text-center py-8 mt-12 border-t border-slate-700/50">
+        {/* <Modal setCommand={setCommand} isOpen={isModalOpen} history={true} setIsOpen={setIsModalOpen} title="Histórico:" description="Aqui estara o histrico." children="" footer=""/> */}
+        <nav className='flex justify-center gap-4 mb-4 '>
+          {PAGES.map(p => (
+            <a key={p.path} href={p.path} className="hover:text-green-400">
+              {p.shortName || p.name}
+            </a>
+          ))}
+        </nav>
           <p className="text-slate-500 text-sm">
-            Criado com <span className="text-red-400">❤️</span> por <a className="text-green-400 hover:underline" href="https://youtube.com/@atmdois" target='_blank'>Atm</a>.
+            Criado com <span className="text-red-400">❤️</span> por <a className="text-green-400 hover:underline" href={YOUTUBE} target='_blank'>{AUTHOR}</a>.
           </p>
           <p className="text-slate-600 text-xs mt-1">
             Esta ferramenta não é afiliada à Mojang.
+          </p>
+          <p className="text-slate-600 text-xs mt-6 ">
+            Versão {VERSION} - {LANGUAGE}
           </p>
         </footer>
       </div>

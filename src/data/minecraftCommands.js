@@ -277,7 +277,6 @@ export const getMinecraftCommands = () => {
       name: 'say',
       description: 'Envia uma mensagem no chat para todos os jogadores.',
       arguments: [
-        { name: 'target', type: 'player', required: false, description: 'O jogador para quem a mensagem será sussurrada (opcional).' },
         { name: 'mensagem', type: 'text', required: true, greedy: true, description: 'A mensagem a ser enviada.' }
       ]
     },

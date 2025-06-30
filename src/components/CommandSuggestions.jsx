@@ -86,7 +86,7 @@ const CommandSuggestions = ({ suggestions, currentArgument, onSuggestionSelect, 
                   {getTypeIcon(suggestion.type)}
                 </div>
                 
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 relative overflow-hidden whitespace-nowrap">
                   <div className="flex items-center space-x-2">
                     <span className="font-mono text-white font-medium">
                       {suggestion.value}
@@ -99,7 +99,7 @@ const CommandSuggestions = ({ suggestions, currentArgument, onSuggestionSelect, 
                   </div>
                   
                   {suggestion.description && (
-                    <p className="text-sm text-slate-400 mt-1 truncate">
+                    <p className="inline-block text-sm text-slate-400 sm:!animate-none hover:animate-scroll">
                       {suggestion.description}
                     </p>
                   )}

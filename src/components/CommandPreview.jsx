@@ -27,7 +27,7 @@ const CommandPreview = ({ parsedCommand, validationErrors, isComplete, unknownCo
       default:
         return 'text-slate-400 bg-slate-500/20 border-slate-500/30';
     }
-  };
+  }; 
 
   const getStatusIcon = (status) => {
     switch (status) {

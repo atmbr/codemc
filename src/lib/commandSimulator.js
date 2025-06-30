@@ -52,15 +52,15 @@ export const simulateCommandExecution = (command) => {
       if (coords.length > 1) {
         return {
           success: true,
-          message: `Teleportou ${target} para ${coords.map(c => c.value).join(' ')}`,
+          message: `Teletransportado(a) ${target} para ${coords.map(c => c.value).join(' ')}`,
           details: `Teletransporte para coordenadas realizado!`
         };
       }
       if (coords.length === 1) {
          return {
            success: true,
-           message: `Teleportou ${target} para ${coords[0].value}`,
-           details: `Teletransporte para entidade/coordenada realizado!`
+           message: `Teletransportado(a) ${target} para ${coords[0].value}`,
+           details: `Teletransporte de entidade p/ coordenada realizado!`
          };
       }
       return {
@@ -100,8 +100,8 @@ export const simulateCommandExecution = (command) => {
       if(target){
           return {
               success: true,
-              message: `[Você sussurra para ${target}] ${message}`,
-              details: `Sussurro enviado.`
+              message: `[${target}] ${message}`,
+              details: `Mensagem enviada.`
           };
       }
       return {

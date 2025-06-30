@@ -7,9 +7,12 @@ const ReportBugsForm = () => {
       method="POST"
       className="bg-card backdrop-blur-sm rounded-xl border border-slate-700/50 p-6 grid grid-cols-1 lg:grid-cols-2 gap-6"
     >
-        <div className="flex items-center space-x-3 mb-4">
-        <AtSignIcon className="w-6 h-6 text-orange-400" />
-        <h3 className="text-xl font-semibold text-white">Contate-nos</h3>
+        <div className="flex flex-col items-start">
+          <div className="flex items-center space-x-3 mb-4">
+              <AtSignIcon className="w-6 h-6 text-orange-400" />
+              <h3 className="text-xl font-semibold text-white">Contate-nos</h3>
+          </div>
+        <span className="text-md font-normal text-slate-400">Se tiver sugestões, dúvidas ou bugs, use este espaço para falar com a gente 😁</span>
       </div>
       <div className="flex flex-col gap-1">
         <label htmlFor="name" className="text-sm font-medium text-slate-200">

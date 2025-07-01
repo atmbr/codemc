@@ -64,6 +64,9 @@ function PageWrapper() {
         <meta name="author" content={SITENAME} />
         <meta name="robots" content="index, follow" />
 
+<meta itemprop="name" content={{SITENAME} - {SLOGAN}}  />
+<meta itemprop="description" content={DESCRIPTION} />
+<meta itemprop="image" content="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/codemc-social.png" />
         {/* Open Graph para redes sociais */}
         <meta property="og:title" content={{SITENAME} - {SLOGAN}} />
         <meta
@@ -72,7 +75,7 @@ function PageWrapper() {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://codemc.vercel.app" />
-        <meta property="og:image" content="https://raw.githubusercontent.com/atmbr/codemc/refs/heads/main/src/assets/imagem/codemc/codemc-social.png" />
+        <meta property="og:image" content="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/codemc-social.png" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -81,7 +84,7 @@ function PageWrapper() {
           name="twitter:description"
           content={DESCRIPTION}
         />
-        <meta name="twitter:image" content="https://raw.githubusercontent.com/atmbr/codemc/refs/heads/main/src/assets/imagem/codemc/codemc-social.png" />
+        <meta name="twitter:image" content="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/codemc-social.png" />
 
       </Helmet>
     <div className="min-h-screen bg-primary bg-100">

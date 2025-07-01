@@ -9,33 +9,35 @@ import sobrePage from './pages/sobre.jsx';
 import termoPage from './pages/termos.jsx';
 import PaginaErro from './pages/404.jsx';
 import siteInfo from "@/data/siteInfo.js";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   const [SITENAME, SLOGAN, MINSLOGAN, DESCRIPTION, AUTHOR, GITHUB, YOUTUBE, KEYWORDS,VERSION, LANGUAGE, PAGES, SOCIAL] = Object.values(siteInfo);
   const [Sobre, sobreN, sobreP] = sobrePage;
 const [Termos, termosN, termosP] = termoPage;
 
-
-  function AppContent() {
   const location = useLocation();
   // Verifica se a URL atual é exatamente "/sobre"
+
+useEffect(() => {
   switch (location.pathname) {
     case "/":
       document.title = `${SITENAME} - ${SLOGAN}`;
-      return <MinecraftCommandTool />
+      break;
+
     case sobreP:
-      document.title = `${sobreN} - ${SITENAME}`;  
-      return <Sobre />
-      case termosP:
-      console.log(termosN)
-      document.title = `${termosN} - ${SITENAME}`;  
-      return <Termos />
+      document.title = `${sobreN} - ${SITENAME}`;
+      break;
+
+    case termosP:
+      document.title = `${termosN} - ${SITENAME}`;
+      break;
+
     default:
       console.log("Página não encontrada");
       document.title = `${SITENAME} - ${SLOGAN}`;
-      return <PaginaErro />
   }
-}
+}, [location.pathname]);
+
 console.log()
 
   return (
@@ -112,7 +114,12 @@ console.log()
         <main className="container mx-auto px-4 py-8">
           <React.StrictMode>
             <BrowserRouter>
-              <AppContent />
+              <Routes>
+                <Route path="/" element={<MinecraftCommandTool />} />
+                <Route path="/sobre" element={<Sobre />} />
+                <Route path="/termos" element={<Termos />} />
+                <Route path="*" element={<PaginaErro />} />
+              </Routes>
             </BrowserRouter>
         </React.StrictMode>
         

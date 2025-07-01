@@ -9,7 +9,6 @@ import sobrePage from './pages/sobre.jsx';
 import termoPage from './pages/termos.jsx';
 import PaginaErro from './pages/404.jsx';
 import siteInfo from "@/data/siteInfo.js";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   const [SITENAME, SLOGAN, MINSLOGAN, DESCRIPTION, AUTHOR, GITHUB, YOUTUBE, KEYWORDS,VERSION, LANGUAGE, PAGES, SOCIAL] = Object.values(siteInfo);
   const [Sobre, sobreN, sobreP] = sobrePage;

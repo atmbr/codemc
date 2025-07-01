@@ -14,30 +14,34 @@ function App() {
   const [Sobre, sobreN, sobreP] = sobrePage;
 const [Termos, termosN, termosP] = termoPage;
 
+function PageWrapper() {
   const location = useLocation();
-  // Verifica se a URL atual é exatamente "/sobre"
 
-useEffect(() => {
-  switch (location.pathname) {
-    case "/":
-      document.title = `${SITENAME} - ${SLOGAN}`;
-      break;
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/":
+        document.title = `${SITENAME} - ${SLOGAN}`;
+        break;
+      case sobreP:
+        document.title = `${sobreN} - ${SITENAME}`;
+        break;
+      case termosP:
+        document.title = `${termosN} - ${SITENAME}`;
+        break;
+      default:
+        document.title = `${SITENAME} - ${SLOGAN}`;
+    }
+  }, [location.pathname]);
 
-    case sobreP:
-      document.title = `${sobreN} - ${SITENAME}`;
-      break;
-
-    case termosP:
-      document.title = `${termosN} - ${SITENAME}`;
-      break;
-
-    default:
-      console.log("Página não encontrada");
-      document.title = `${SITENAME} - ${SLOGAN}`;
-  }
-}, [location.pathname]);
-
-console.log()
+  return (
+    <Routes>
+      <Route path="/" element={<MinecraftCommandTool />} />
+      <Route path="/sobre" element={<Sobre />} />
+      <Route path="/termos" element={<Termos />} />
+      <Route path="*" element={<PaginaErro />} />
+    </Routes>
+  );
+}
 
   return (
    <HelmetProvider>
@@ -113,12 +117,7 @@ console.log()
         <main className="container mx-auto px-4 py-8">
           <React.StrictMode>
             <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<MinecraftCommandTool />} />
-                <Route path="/sobre" element={<Sobre />} />
-                <Route path="/termos" element={<Termos />} />
-                <Route path="*" element={<PaginaErro />} />
-              </Routes>
+              <PageWrapper />
             </BrowserRouter>
         </React.StrictMode>
         

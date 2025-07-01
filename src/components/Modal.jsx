@@ -121,7 +121,7 @@ const Modal = ({ setCommand, isOpen, setIsOpen, title, description, footer, hist
     {/* Detalhes e requisitos */}
     <div className="flex flex-col items-center text-center space-y-2">
       <img
-        src="https://raw.githubusercontent.com/atmbr/codemc/main/src/src/assets/imagem/help/requisit-cmd-1.png"
+        src="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/help/requisit-cmd-1.png"
         alt="Requisitos do comando"
         className="rounded-lg border border-slate-700 max-w-full max-h-62 object-contain shadow-md"
       />
@@ -134,7 +134,7 @@ const Modal = ({ setCommand, isOpen, setIsOpen, title, description, footer, hist
     {/* Resultado final */}
     <div className="flex flex-col items-center text-center space-y-2">
       <img
-        src="https://raw.githubusercontent.com/atmbr/codemc/main/src/src/assets/imagem/help/result-cmd-1.png"
+        src="https://raw.githubusercontent.com/atmbr/codemc/main/src/assets/imagem/help/result-cmd-1.png"
         alt="Resultado do comando"
         className="rounded-lg border border-slate-700 max-w-full max-h-62 object-contain shadow-md"
       />

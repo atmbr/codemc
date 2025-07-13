@@ -9,7 +9,6 @@ function filterValid(filterV){
   return match[1].split(',').reduce((objV, item)=>{
   const [key, value] = item.split('=');
   objV[key] = value //cria um objeto com a chave e add o valor nessa chave Ex: type: "" antes vazio, agora type: 222
-  console.log(objV)
   if(objV.type || objV.name) return objV
   return [filterV, objV]
 }, {}) // O {} no fim, converter toda string em objeto
@@ -17,7 +16,6 @@ function filterValid(filterV){
 function getNames(item, obj){
   var type = String(item.type).trim();
   var result = lists[type].find(a=>a.value == item.value)
-  console.log(result)
   if(!result || !result.description) return item
   if(obj) return[item, result, result.description]
   return result.description
@@ -31,10 +29,6 @@ function getNames(item, obj){
       const item = getNames(args.find(a => a.type === 'item'), true) || 'minecraft:stone';
       const amount = args.find(a => a.type === 'number')?.value || '1';
       const itemDesc = !item[2]?item[1].value.replace('minecraft:', ''):item[2] || item.value
-
-
-console.log(itemDesc, tgt)
-      console.log(item)
       return {
         success: true,
         message: `Deu ${amount}x ${itemDesc} para ${tgt}`,

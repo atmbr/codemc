@@ -33,7 +33,7 @@ const siteInfo = {
     "java", 
     "online"
   ],
-version: "0.1 Beta",
+version: "0.2 Beta",
   language: "Pt-Br",
   pages: [
     { name: "Início", path: "/", shortName: "inicio" },

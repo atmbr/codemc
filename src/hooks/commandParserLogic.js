@@ -51,8 +51,9 @@ const findParentChain = (rootArgs, targetChain) => {
 export const parseCommandLogic = (input, commands, isChained = false) => {
   const baseInput = isChained ? input : input.slice(1);
   if (!isChained && !input.startsWith('/')) return null;
-
   const parts = baseInput.split(/\s+/).filter(part => part.length > 0);
+// //console.log(baseInput, baseInput.split(/\s+/), parts);
+
   if (parts.length === 0) return null;
   
   const commandName = parts[0];

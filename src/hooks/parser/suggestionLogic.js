@@ -1,4 +1,7 @@
-const generateStandardSuggestions = (argDef, currentText, commands) => {
+import {getMinecraftCommands, targetFilter} from '@/data/minecraftCommands';
+import { getListArg } from '@/data/getListArg';
+const generateStandardSuggestions = (argDef, currentText, commands, input, cursorPosition) => {
+  const lists = getListArg();
   const suggestions = [];
    if (!argDef) return suggestions;
    switch (argDef.type) {
@@ -11,23 +14,90 @@ const generateStandardSuggestions = (argDef, currentText, commands) => {
     case 'target_selector':
     case 'target_score_holder':
     case 'source_score_holder':
-      suggestions.push(
-        { value: '@p', description: 'Jogador mais próximo', type: 'player' },
-        { value: '@a', description: 'Todos os jogadores', type: 'player' },
-        { value: '@r', description: 'Jogador aleatório', type: 'player' },
-        { value: '@s', description: 'Você mesmo (executor)', type: 'player' },
-        { value: '@e', description: 'Todas as entidades', type: 'player' }
-      );
+      const playerSelectorFilters = targetFilter
+
+      if (currentText.startsWith('@') && currentText.includes('[')) {
+  const openBracketIndex = currentText.indexOf('[');
+  const insideBrackets = currentText.slice(openBracketIndex + 1);
+  const filters = insideBrackets.split(',');
+
+  const relativeCursor = cursorPosition - input.indexOf('[') - 1;
+
+  // Encontrar filtro atual e posição dele
+  let charCount = 0;
+  let currentFilterRaw = '';
+  let currentFilterIndex = 0;
+  for (let i = 0; i < filters.length; i++) {
+    const f = filters[i];
+    if (relativeCursor <= charCount + f.length) {
+      currentFilterRaw = f.trim();
+      currentFilterIndex = i;
+      break;
+    }
+    charCount += f.length + 1; // +1 para vírgula
+  }
+
+  const [key = '', value = ''] = currentFilterRaw.split('=');
+  const cursorBeforeEqual = relativeCursor <= (charCount + key.length);
+
+  const matchedFilter = playerSelectorFilters.find(f => f.value === key);
+
+  const baseIndex = input.indexOf('[') + 1;
+  const filterStart = baseIndex + charCount; // início do filtro atual
+
+  if (matchedFilter && currentFilterRaw.includes('=') && !cursorBeforeEqual) {
+  const suggestionsForValues = [];
+
+  const equalPos = filterStart + key.length; // posição do '='
+  const valueStart = equalPos + 1; // início do valor (logo após '=')
+  const valueEnd = filterStart + currentFilterRaw.length; // fim do valor atual
+
+  if (key === 'type') {
+    suggestionsForValues.push(...lists.mob);
+  } else if (key === 'distance') {
+    suggestionsForValues.push(...lists.filterDistance);
+  } else if (key === 'sort') {
+    suggestionsForValues.push(...lists.filterShort
+    );
+  }
+
+  return suggestionsForValues
+  .filter(s => s.value.toLowerCase().startsWith(value.toLowerCase()))
+  .map(s => ({
+    value: s.value,
+    insertText: `${s.value},`,
+    description: s.description,
+    type: s.type,
+    replacementRange: { start: valueStart, end: valueEnd },
+    insertTextFormat: 2, // indica snippet, se suportar
+  }));
+
+}
+
+
+  // Sugestões de filtros antes do '=' (para trocar o nome do filtro)
+  const partialKey = key.toLowerCase();
+  const usedKeys = filters.map(f => f.split('=')[0].trim());
+  const availableFilters = playerSelectorFilters.filter(f => !usedKeys.includes(f.value) || f.value === key);
+
+  const replaceStart = filterStart;
+  const replaceEnd = filterStart + key.length;
+
+  return availableFilters
+    .filter(f => f.value.toLowerCase().startsWith(partialKey))
+    .map(f => ({
+      value: f.value,
+      insertText: `${f.value}=`,
+      description: f.description,
+      type: f.type,
+      replacementRange: { start: replaceStart, end: replaceEnd }
+    }));
+}
+      suggestions.push(...lists.playerSelector);
       break;
     case 'item':
     case 'block_id':
-      suggestions.push(
-        { value: 'minecraft:diamond_sword', description: 'Espada de Diamante', type: 'item' },
-        { value: 'minecraft:stone', description: 'Pedra', type: 'item' },
-        { value: 'minecraft:apple', description: 'Maçã', type: 'item' },
-        { value: 'minecraft:dirt', description: 'Terra', type: 'item' },
-        { value: 'minecraft:air', description: 'Ar', type: 'item' }
-      );
+      suggestions.push(...lists.item);
       break;
     case 'number':
     case 'amount':
@@ -35,61 +105,32 @@ const generateStandardSuggestions = (argDef, currentText, commands) => {
     case 'amplifier':
     case 'yaw':
     case 'pitch':
-      suggestions.push({ value: '1', description: 'Um', type: 'number' }, { value: '10', description: 'Dez', type: 'number' }, { value: '64', description: 'Pack', type: 'number' });
+      suggestions.push(...lists.number);
       break;
     case 'coordinate':
     case 'x': case 'y': case 'z':
     case 'begin_x': case 'begin_y': case 'begin_z':
     case 'end_x': case 'end_y': case 'end_z':
     case 'destination_x': case 'destination_y': case 'destination_z':
-      suggestions.push({ value: '~', description: 'Relativo à posição atual', type: 'coordinate' }, { value: '0', description: 'Coordenada zero', type: 'coordinate'});
+       suggestions.push(...lists.coordinate);
       break;
     case 'axes_string':
-       suggestions.push(
-           { value: 'x', description: 'Eixo X', type: 'axes_string'}, 
-           { value: 'y', description: 'Eixo Y', type: 'axes_string'}, 
-           { value: 'z', description: 'Eixo Z', type: 'axes_string'}, 
-           { value: 'xy', description: 'Eixos X e Y', type: 'axes_string'}, 
-           { value: 'xz', description: 'Eixos X e Z', type: 'axes_string'}, 
-           { value: 'yz', description: 'Eixos Y e Z', type: 'axes_string'}, 
-           { value: 'xyz', description: 'Eixos X, Y e Z', type: 'axes_string'}
-        );
+       suggestions.push(...lists.axe);
        break;
     case 'player_or_coordinate':
-        suggestions.push(
-            { value: '@p', description: 'Jogador mais próximo', type: 'player' },
-            { value: '~', description: 'Coordenada relativa X', type: 'coordinate' }
-        );
+        suggestions.push(...lists.playerOrCoord);
         break;
     case 'time_value_or_keyword':
-        suggestions.push(
-            { value: '0', description: 'Início do dia (ticks)', type: 'number' },
-            { value: 'day', description: 'Define para 1000 ticks', type: 'keyword' },
-            { value: 'noon', description: 'Define para 6000 ticks', type: 'keyword' },
-            { value: 'night', description: 'Define para 13000 ticks', type: 'keyword' },
-            { value: 'midnight', description: 'Define para 18000 ticks', type: 'keyword' }
-        );
+        suggestions.push(...lists.timeValue);
         break;
     case 'effect_action_or_id':
-        suggestions.push(
-            { value: 'clear', description: 'Remove todos os efeitos', type: 'keyword' },
-            { value: 'minecraft:speed', description: 'Efeito de Velocidade', type: 'item' },
-            { value: 'minecraft:strength', description: 'Efeito de Força', type: 'item' }
-        );
+       suggestions.push(...lists.effectAction);
         break;
     case 'objective_name':
-        suggestions.push(
-            { value: 'health', description: 'Objetivo de Vida', type: 'objective' },
-            { value: 'kills', description: 'Objetivo de Abates', type: 'objective' }
-        );
+       suggestions.push(...lists.objective);
         break;
     case 'integer_range':
-        suggestions.push(
-            { value: '1..5', description: 'De 1 a 5', type: 'range' },
-            { value: '10', description: 'Exatamente 10', type: 'range' },
-            { value: '..7', description: 'Até 7 (inclusive)', type: 'range' },
-            { value: '0..', description: 'De 0 em diante', type: 'range' }
-        );
+        suggestions.push(...lists.range);
         break;
     case 'text':
         return [];
@@ -105,16 +146,24 @@ const generateStandardSuggestions = (argDef, currentText, commands) => {
       }
       break;
   }
-  if (argDef.type === 'item' || argDef.type === 'block_id') {
-  return suggestions.filter(s => s.value === currentText);
+  if (['origin', 'target', 'player'].includes(argDef.type)
+) {
+  // return suggestions.filter(s => s.value.toLowerCase().includes(currentText.toLowerCase()));
 }
-return suggestions.filter(s => s.value.toLowerCase().startsWith(currentText.toLowerCase()));
+  if (argDef.type === 'item' || argDef.type === 'block_id') {
+    // //console.log(suggestions.map(s => s.value.toLocaleLowerCase() === currentText.toLowerCase()));
+  return suggestions.filter(s => s.value.toLowerCase().includes(currentText.toLowerCase()));
+}
+return suggestions.filter(s => s.value.toLowerCase().includes(currentText.toLowerCase()));
 }
 
 
 const getCurrentTextForSuggestionLogic = (input, cursorPosition) => {
+ 
   const textBeforeCursor = input.slice(0, cursorPosition);
   const lastSpaceIndex = textBeforeCursor.lastIndexOf(' ');
+   let t = textBeforeCursor?.split(' ') || false;
+  if(t && t.length > 1) //console.log(t);
   if (input.endsWith(' ') && cursorPosition === input.length) return ''; 
   return textBeforeCursor.slice(lastSpaceIndex + 1);
 };
@@ -234,5 +283,6 @@ export const generateSuggestionsLogic = (parsedCommand, currentArgumentDef, inpu
     return [];
   }
   
-  return generateStandardSuggestions(actualArgDef, currentTextForSuggestion, commands);
+  return generateStandardSuggestions(actualArgDef, currentTextForSuggestion, commands, input, cursorPosition);
+
 };

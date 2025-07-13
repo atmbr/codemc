@@ -13,7 +13,7 @@ import { Package } from 'lucide-react';
 
 const TemplateModal = ({ isOpen, setIsOpen, title, description, children, footer, history }) => {
 const hist = JSON.parse(localStorage.getItem('history'))||"Não há histórico!!";
-console.log(hist, isOpen)
+//console.log(hist, isOpen)
 const content = history? hist:children;
  return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

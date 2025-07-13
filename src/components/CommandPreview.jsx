@@ -5,7 +5,6 @@ import { Eye, CheckCircle, AlertCircle, Clock, HelpCircle } from 'lucide-react';
 
 const CommandPreview = ({ parsedCommand, validationErrors, isComplete, unknownCommandError }) => {
   const hasErrors = validationErrors && validationErrors.length > 0;
-
   const getArgumentStatus = (arg) => {
     const error = validationErrors?.find(e => e.argument === arg.name);
     if (error) return 'error';
@@ -77,7 +76,11 @@ const CommandPreview = ({ parsedCommand, validationErrors, isComplete, unknownCo
             </div>
             
             {parsedCommand.description && (
-              <p className="text-slate-300 text-sm mb-4">{parsedCommand.description}</p>
+              <div>
+              <p className="text-slate-300 text-sm mb-4">{parsedCommand.description} </p>
+              <p className="text-slate-300 text-sm mb-4">Como usar: <span className="italic bg-gray-950 p-2 leading-9">"/{parsedCommand.name}{" "}
+      {parsedCommand.arguments?.map((e) => {return `<${e.name}>`}).join(" ")}"</span></p>
+              </div>
             )}
 
             {/* Arguments */}
@@ -93,23 +96,23 @@ const CommandPreview = ({ parsedCommand, validationErrors, isComplete, unknownCo
                     const error = validationErrors?.find(e => e.argument === arg.name);
                     
                     return (
-                      <motion.div
+                      <motion.div 
                         key={`${arg.name}-${index}`}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className={`p-3 rounded-lg border ${getStatusColor(status)}`}
+                        className={`p-3 rounded-lg border  ${getStatusColor(status)}`}
                       >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3">
+                        <div className="flex items-start justify-between flex-col">
+                          <div className="flex items-start space-x-3">
                             {getStatusIcon(status)}
-                            <div>
+                            <div className=' flex-col'>
                               <span className="font-medium">{arg.name}</span>
                               <span className="text-xs ml-2 opacity-75">({arg.type})</span>
                             </div>
                           </div>
                           
-                          <div className="text-right">
+                          <div className="text-left">
                             {arg.value ? (
                               <span className="font-mono text-sm">{arg.value}</span>
                             ) : (

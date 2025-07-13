@@ -13,7 +13,7 @@ import SimulationArea from '@/components/tool/SimulationArea';
 import Modal from '@/components/Modal'
 import TemplateModal from '@/components/TemplateModal'
 import { useCommandParser } from '@/hooks/useCommandParser';
-import { useCommandValidation } from '@/hooks/useCommandValidation';
+import { useCommandValidation, getInput} from '@/hooks/useCommandValidation';
 import { simulateCommandExecution } from '@/lib/commandSimulator';
 import ReportBugsForm from '@/ReportBugsForm';
 import siteInfo from "@/data/siteInfo.js";
@@ -22,7 +22,8 @@ import useAlert from '@/hooks/useAlert';
 import SupportModal from '@/components/supportModal'
 const MinecraftCommandTool = () => {
     const [SITENAME, SLOGAN, MINSLOGAN, DESCRIPTION, AUTHOR, GITHUB, YOUTUBE, KEYWORDS,VERSION, LANGUAGE, PAGES, SOCIAL] = Object.values(siteInfo);
-  
+// console.clear()
+
   const [input, setInput] = useState('');
   const [cursorPosition, setCursorPosition] = useState(0);
   const [simulationResult, setSimulationResult] = useState(null);
@@ -54,9 +55,10 @@ const [commandHistory, setCommand] = useState("");
   const {
     validationErrors,
     isValid,
-    validateCommand
+    validateCommand,
+    inputVr
   } = useCommandValidation();
-
+  getInput(input) // Coletar o valor do input
   useEffect(() => {
     if (commandHistory) {
     setInput(commandHistory);  // Preenche o input
@@ -70,6 +72,7 @@ const [commandHistory, setCommand] = useState("");
   }
     if (input && !unknownCommandError) {
       validateCommand(parsedCommand);
+      // //console.log(parsedCommand)
     } else {
       validateCommand(null); 
     }
@@ -81,39 +84,111 @@ const [commandHistory, setCommand] = useState("");
     setSimulationResult(null);
   };
 
-  const handleSuggestionSelect = useCallback((suggestion) => {
-    const textBeforeCursor = input.slice(0, cursorPosition);
+const handleSuggestionSelect = useCallback((suggestion) => {
+  let newInput = input;
+  let newPosition = cursorPosition;
+  const insertedText = suggestion.insertText || suggestion.value;
+  const isSelector = /@\w\[[^\]]*]/g.test(newInput) || insertedText.includes('[') && insertedText.includes(']');
+  // //console.log(isSelector, insertedText, insertedText.includes('['), insertedText.includes(']'), /@\w\[[^\]]*]/g.test(newInput) )
+  const before = input.slice(0, cursorPosition);
+  const after = input.slice(cursorPosition);
+    newInput = `${before}${insertedText} `;
+  if (!isSelector) {
+    // //console.log("Não tem filtro!!")
+    const openBracketIndex = before.length + insertedText.indexOf('[');
+    // console.table({
+    //   'before: ': before,
+    //   'after: ': after,
+    //   'insertedText: ': insertedText,
+    //   'cursorPosition: ': cursorPosition,
+    //   "openBracketIndex": openBracketIndex,
+    //   'before.length': before.length,
+    //   'insertedText.indexOf()': insertedText.indexOf('[')
+    // })
     
-    let startOfReplacement;
-    if (textBeforeCursor.startsWith('/') && textBeforeCursor.indexOf(' ') === -1 && !textBeforeCursor.substring(1).includes(' ')) {
-        startOfReplacement = 1;
-    } else {
-        const lastSpaceIndex = textBeforeCursor.lastIndexOf(' ');
-        startOfReplacement = lastSpaceIndex === -1 ? textBeforeCursor.length : lastSpaceIndex + 1;
-    }
+    newInput = `${before}${insertedText}${after} `;
+    
+    newPosition = newInput.length + 1;
 
-    const currentArgumentValue = textBeforeCursor.slice(startOfReplacement);
-    
-    let partBefore;
-    if (input.slice(0, startOfReplacement).endsWith(currentArgumentValue)) {
-      partBefore = input.slice(0, startOfReplacement - currentArgumentValue.length);
-    } else {
-      partBefore = input.slice(0, startOfReplacement);
-    }
-    
-    const newInput = `${partBefore}${suggestion.value} `;
-    const newPosition = newInput.length;
+  } 
+  if (isSelector) {
+    // //console.log("Tem filtro!!")
+    // //console.log(newInput, insertedText)
+    // //console.log(1)
+    const openBracketIndex = before.length + insertedText.indexOf('[');
+    newPosition = newInput.trim().length - 1;
+    const selectorRegex = /@\w\[[^\]]*]/g;
 
-    setInput(newInput.toLowerCase());
-    setCursorPosition(newPosition);
-    
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-        inputRef.current.setSelectionRange(newPosition, newPosition);
-      }
-    }, 0);
-  }, [input, cursorPosition]);
+    const match = [...input.matchAll(selectorRegex)].find(m => {
+
+      return cursorPosition >= m.index && cursorPosition <= m.index + m[0].length;
+    });
+
+
+    if (match) {
+  const fullMatch = match[0];
+  const beforeSelector = input.slice(0, match.index);
+  const afterSelector = input.slice(match.index + fullMatch.length);
+
+  const inside = fullMatch.slice(fullMatch.indexOf('[') + 1, fullMatch.indexOf(']'));
+  const filters = inside ? inside.split(',').map(f => f.trim()).filter(f => f) : [];
+
+  // Determinar qual filtro está sendo editado
+  const relativeCursor = cursorPosition - (match.index + fullMatch.indexOf('[') + 1);
+
+  let charCount = 0;
+  let currentFilterIndex = -1;
+  for (let i = 0; i < filters.length; i++) {
+    if (relativeCursor <= charCount + filters[i].length) {
+      currentFilterIndex = i;
+      break;
+    }
+    charCount += filters[i].length + 1; // +1 para a vírgula
+  }
+
+  if (currentFilterIndex === -1) {
+  // Adiciona filtro novo (ex: type=zombie)
+  filters.push(insertedText);
+} else {
+  // Se insertedText contém '=' é filtro completo, substitui filtro todo
+  if (insertedText.includes('=')) {
+    filters[currentFilterIndex] = insertedText;
+  } else {
+    // Só valor, então mantém chave atual e substitui valor
+    const currentFilter = filters[currentFilterIndex];
+    const [key] = currentFilter.split('=');
+    filters[currentFilterIndex] = `${key}=${insertedText}`;
+  }
+}
+  const newInside = filters.join(',');
+  const updatedSelector = `${fullMatch.slice(0, fullMatch.indexOf('[') + 1)}${newInside}]`;
+  newInput = `${beforeSelector}${updatedSelector}${afterSelector}`;
+
+  const openBracketIndex = beforeSelector.length + updatedSelector.indexOf('[');
+  console.table([
+    'input.lenght:', input.length,
+    'openBracketIndex', openBracketIndex,
+    'insertedText.length', insertedText.length,
+
+  ])
+  newPosition = input.length + openBracketIndex + insertedText.length - openBracketIndex - 2; // cursor após o texto inserido
+  }
+
+  }
+
+  setInput(newInput);
+  setCursorPosition(newPosition);
+
+  setTimeout(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.setSelectionRange(newPosition, newPosition);
+    }
+  }, 0);
+}, [input, cursorPosition]);
+
+
+
 
   document.addEventListener('keydown', (e)=>{
     if(e.key === 'Enter'){
@@ -153,6 +228,7 @@ const [commandHistory, setCommand] = useState("");
 
     const result = simulateCommandExecution(parsedCommand);
     setSimulationResult(result);
+    // //console.log(parsedCommand, result)
     if(result){
       let history = JSON.parse(localStorage.getItem('history')) || [];
       history.push(input.toLowerCase());

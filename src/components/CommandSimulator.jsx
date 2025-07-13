@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Terminal, CheckCircle, AlertCircle, Zap } from 'lucide-react';
 
 const CommandSimulator = ({ result }) => {
+  // //console.log(result)
   if (!result) return null;
 
   return (

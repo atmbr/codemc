@@ -13,13 +13,14 @@ const displayMessage = {
   ],
   novidades: 
     {
-      content: [
-        "Agora a lógica de adicionar argumentos está mais robusta.",
-        "A função histórico foi adicionada!",
-        "O código foi refatorado para melhor organização e performance!",
-        "Correção de Bugs!"
-      ],
-      footer: "Explore as novidades!"
+    content:[
+      "Agora foi adicionada o fitro de entidade.",
+      "A verificação dos comandos ficou mais robusta.",
+      "Foi adicionada um Como Usar nos comandos.",
+      "Foi adicionado mais informação no Simulador de Comando.",
+      "Correção de bugs."
+    ],
+    footer: "Explore as novidades!"
     }
   ,
   dicas: {
@@ -53,25 +54,25 @@ const displayMessage = {
               description: "Mata entidades."
             },
             {
-              name: "/effect give <jogador> <efeito> [duração] [amplificador]",
+              name: "/effect <jogador> <efeito> [duração] [amplificador]",
               description: "Aplica um efeito de status."
             }
           ],
           on: true
         },
     extra: {
-    title: "Dicas para /execute",
-    info: [
-      "Use `as @e[type=armor_stand]` para executar como todos os suportes de armadura.",
-      "`at @s` executa o comando na sua posição atual.",
-      "`if block ~ ~-1 ~ minecraft:grass_block` verifica se há um bloco de grama abaixo.",
-      "`run say Olá` no final de uma cadeia execute para executar um comando simples.",
-      "Combine subcomandos: `/execute as @a at @s if entity @s[distance=..5] run say Perto!`"
-    ],
-    description:
-      "O comando `/execute` é poderoso! Ele permite modificar o contexto de execução de outros comandos. Experimente combinar <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">as</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">at</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">if/unless</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">positioned</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">rotated</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">facing</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">in</code> e finalize com <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">run &lt;comando&gt;</code>."
-    ,
-      on: true 
+    // title: "Dicas para /execute",
+    // info: [
+    //   "Use `as @e[type=armor_stand]` para executar como todos os suportes de armadura.",
+    //   "`at @s` executa o comando na sua posição atual.",
+    //   "`if block ~ ~-1 ~ minecraft:grass_block` verifica se há um bloco de grama abaixo.",
+    //   "`run say Olá` no final de uma cadeia execute para executar um comando simples.",
+    //   "Combine subcomandos: `/execute as @a at @s if entity @s[distance=..5] run say Perto!`"
+    // ],
+    // description:
+    //   "O comando `/execute` é poderoso! Ele permite modificar o contexto de execução de outros comandos. Experimente combinar <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">as</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">at</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">if/unless</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">positioned</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">rotated</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">facing</code>, <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">in</code> e finalize com <code className=\"font-mono text-xs bg-slate-700 px-1 py-0.5 rounded\">run &lt;comando&gt;</code>."
+    // ,
+    //   on: true 
     }
           
     },

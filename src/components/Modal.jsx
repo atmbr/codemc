@@ -31,20 +31,20 @@ const Modal = ({ setCommand, isOpen, setIsOpen, title, description, footer, hist
     (item, all) => {
       if (!all && confirm(`Apagar "${item}" do histórico?`)) {
         const updated = history2.filter((h) => h !== item);
-        console.log(updated)
+        //console.log(updated)
         localStorage.setItem('history', JSON.stringify(updated));
         setHistory(updated);
       }
       if (all && confirm(`Apagar todos os itens do histórico?`)) {
-        console.log('Apagando todo o histórico...');
-        // localStorage.removeItem('history');
-        // const updated = [];
-        // setHistory(updated);
+        //console.log('Apagando todo o histórico...');
+        localStorage.setItem('history', JSON.stringify([]));
+        const updated = [];
+        setHistory(updated);
       }
     },
     [history2]
   );
-  // console.log(history2?.slice(0, 10))
+  // //console.log(history2?.slice(0, 10))
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

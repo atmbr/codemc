@@ -359,20 +359,28 @@ export const getMinecraftCommands = () => {
         { name: 'unit', type: 'xp_unit', required: false, description: 'Unidade de experiência (levels ou points).', options: [{value: 'levels'}, {value: 'points'}] }
       ]
     },
-    {
-      name: 'execute',
-      description: 'Executa um comando com modificadores de contexto.',
-      isExecute: true, 
-      arguments: [
-        { 
-          name: 'subcommand_or_run', 
-          type: 'execute_start', 
-          required: true, 
-          description: 'Escolha um subcomando do execute ou "run" para continuar.',
-          options: executeSubCommands.map(sc => ({value: sc.name, description: sc.description, type: sc.type === 'execute_run' ? 'execute_run_option' : 'execute_subcommand_option'})) 
-        }
-      ],
-      subCommands: executeSubCommands 
-    }
+    // {
+    //   name: 'execute',
+    //   description: 'Executa um comando com modificadores de contexto.',
+    //   isExecute: true, 
+    //   arguments: [
+    //     { 
+    //       name: 'subcommand_or_run', 
+    //       type: 'execute_start', 
+    //       required: true, 
+    //       description: 'Escolha um subcomando do execute ou "run" para continuar.',
+    //       options: executeSubCommands.map(sc => ({value: sc.name, description: sc.description, type: sc.type === 'execute_run' ? 'execute_run_option' : 'execute_subcommand_option'})) 
+    //     }
+    //   ],
+    //   subCommands: executeSubCommands 
+    // }
   ];
 };
+export const targetFilter = [
+  { value: 'type', insertText: 'type=', description: 'Tipo da entidade (ex: zombie)', type: 'filter' },
+  { value: 'name', insertText: 'name=', description: 'Nome da entidade', type: 'filter' },
+  { value: 'distance', insertText: 'distance=', description: 'Distância (ex: ..10)', type: 'filter' },
+  { value: 'scores', insertText: 'scores=', description: 'Pontuação no scoreboard', type: 'filter' },
+  { value: 'tag', insertText: 'tag=', description: 'Tag da entidade', type: 'filter' },
+  { value: 'limit', insertText: 'limit=', description: 'Limite de entidades', type: 'filter' }
+]

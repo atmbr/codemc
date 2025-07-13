@@ -22,7 +22,7 @@ import useAlert from '@/hooks/useAlert';
 import SupportModal from '@/components/supportModal'
 const MinecraftCommandTool = () => {
     const [SITENAME, SLOGAN, MINSLOGAN, DESCRIPTION, AUTHOR, GITHUB, YOUTUBE, KEYWORDS,VERSION, LANGUAGE, PAGES, SOCIAL] = Object.values(siteInfo);
-// console.clear()
+console.clear()
 
   const [input, setInput] = useState('');
   const [cursorPosition, setCursorPosition] = useState(0);
